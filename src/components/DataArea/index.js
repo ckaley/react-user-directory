@@ -6,8 +6,8 @@ import API from "../../utils/API";
 import "./style.css";
 import DataAreaContext from "../../utils/DataAreaContext";
 
-const DataArea = () => {
-  const [developerState, setDeveloperState] = useState({
+// Set the initial State object 
+const initialState = {
     users: [],
     order: "descend",
     filteredUsers: [],
@@ -18,20 +18,28 @@ const DataArea = () => {
       { name: "email", width: "20%", order: "descend" },
       { name: "dob", width: "10%", order: "descend" }
     ]
-  });
+  }
 
+const DataArea = () => {
+
+  // define developerState to be the state object tracked
+  const [developerState, setDeveloperState] = useState(initialState);
+  
+  // hanleSort gets the value from the Heading of the directiopn of the Sort (e.g. ascending or descending) 
   const handleSort = heading => {
     let currentOrder = developerState.headings
       .filter(elem => elem.name === heading)
       .map(elem => elem.order)
       .toString();
 
+    // then toggle the value of the sort
     if (currentOrder === "descend") {
       currentOrder = "ascend";
     } else {
       currentOrder = "descend";
     }
 
+    //the compare function used in the array sort with 
     const compareFnc = (a, b) => {
       if (currentOrder === "ascend") {
         // account for missing values
@@ -92,14 +100,13 @@ const DataArea = () => {
 
   useEffect(() => {
     API.getUsers().then(results => {
-      console.log(results.data.results);
       setDeveloperState({
         ...developerState,
         users: results.data.results,
         filteredUsers: results.data.results
       });
     });
-  }, [developerState]);
+  }, []); // run this only on intial load
 
   return (
     <DataAreaContext.Provider
