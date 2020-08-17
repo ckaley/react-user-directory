@@ -18,9 +18,9 @@ const DataBody = () => {
   return (
     <tbody>
       {context.developerState.filteredUsers[0] !== undefined && context.developerState.filteredUsers[0].name !== undefined ? (
-        context.developerState.filteredUsers.map(({ login, name, picture, phone, email, dob }) => {
+        context.developerState.filteredUsers.map(({ id, name, picture, phone, email, dob }) => {
           return (
-            <tr key={login.uuid}>
+            <tr key={id.value}>
               <td data-th="Image" className="align-middle">
                 <img
                   src={picture.medium}

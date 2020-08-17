@@ -1,3 +1,4 @@
+// Import Dependencies
 import React from "react";
 import SearchName from "../Search";
 import "./style.css";

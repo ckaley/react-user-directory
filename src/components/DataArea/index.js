@@ -1,3 +1,4 @@
+// Import Dependencies
 import React, { useState, useEffect } from "react";
 import DataTable from "../DataTable";
 import Nav from "../Nav";
@@ -81,7 +82,6 @@ const DataArea = () => {
     const filter = event.target.value;
     const filteredList = developerState.users.filter(item => {
       let values = item.name.first.toLowerCase() + " " + item.name.last.toLowerCase();
-      console.log(filter, values)
     if(values.indexOf(filter.toLowerCase()) !== -1){
       return item
     };
@@ -90,7 +90,6 @@ const DataArea = () => {
     setDeveloperState({ ...developerState, filteredUsers: filteredList });
   };
 
-  ///https://stackoverflow.com/questions/53120972/how-to-call-loading-function-with-react-useeffect-only-once
   useEffect(() => {
     API.getUsers().then(results => {
       console.log(results.data.results);
